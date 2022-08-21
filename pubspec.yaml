@@ -26,9 +26,7 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
-dependencies:
-  animated_page_transition: ^0.0.1+2
-  auto_animated: ^3.1.0
+dependenci
   bloc: ^8.1.0
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
