@@ -10,7 +10,7 @@ class AuthServices with Api {
       final data =
           jsonEncode({"email": "salahu@gmail.com", "password": "12345678"});
       log(data);
-      final response = await Dio().post('$uriAndroid/auth/login', data: data);
+      final response = await Dio().post('$uriLinux/auth/login', data: data);
       log(response.statusCode.toString());
       log(response.data.toString());
     } catch (e) {
@@ -26,7 +26,7 @@ class AuthServices with Api {
         "name": "salahh"
       });
       log(data);
-      final response = await Dio().post('$uriAndroid/auth/signUp', data: data);
+      final response = await Dio().post('$uriLinux/auth/signUp', data: data);
       log(response.statusCode.toString());
       log(response.data.toString());
     } catch (e) {

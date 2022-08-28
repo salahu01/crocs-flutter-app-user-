@@ -1,4 +1,5 @@
 import 'package:crocs/utils/themes/app_colors.dart';
+import 'package:crocs/utils/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,38 +30,28 @@ class Shop extends AppColors {
                             height: 90.sp,
                           ),
                           Flexible(
-                            child: Stack(
+                            child: Column(
                               children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  child: const Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                                    child: Text(
-                                      'CHUMBAK X CROCS CLASSIC RED/MULTI UNISEX CLOG',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
+                                Text(
+                                  'CHUMBAK X CROCS CLASSIC RED/MULTI UNISEX CLOG',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp,
                                   ),
                                 ),
-                                Column(
+                                SizedBox(height: 15.h),
+                                Row(
                                   children: [
-                                    SizedBox(height: 60.h),
-                                    Row(
-                                      children: [
-                                        const Spacer(),
-                                        button(text: 'M'),
-                                        SizedBox(width: 30.w),
-                                        button(text: '2'),
-                                        SizedBox(width: 15.w),
-                                        Text(
-                                          '\$ 24.00',
-                                          style: TextStyle(
-                                            fontSize: 16.sp,
-                                          ),
-                                        ),
-                                      ],
+                                    const Spacer(),
+                                    button(text: 'M'),
+                                    SizedBox(width: 30.w),
+                                    button(text: '2'),
+                                    SizedBox(width: 15.w),
+                                    Text(
+                                      '\$ 24.00',
+                                      style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w700),
                                     ),
                                   ],
                                 ),
@@ -76,46 +67,11 @@ class Shop extends AppColors {
               SizedBox(height: size.height * 0.06)
             ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: InkWell(
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
+          CustomButton(
               onTap: () {},
-              child: Container(
-                margin: EdgeInsets.only(
-                  left: size.width * 0.22,
-                  right: size.width * 0.22,
-                  bottom: size.height * 0.02,
-                ),
-                decoration: BoxDecoration(
-                    color: primary, borderRadius: BorderRadius.circular(20.sp)),
-                height: size.height * 0.08,
-                child: SizedBox(
-                  width: double.maxFinite,
-                  child: Row(
-                    children: [
-                      const Spacer(flex: 2),
-                      Text(
-                        'Buy Now',
-                        style: TextStyle(
-                          color: light,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 23.sp,
-                        ),
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.payment,
-                        color: light,
-                        size: 25.sp,
-                      ),
-                      const Spacer(flex: 2),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
+              dialog: 'Check Out',
+              icon: Icons.shopping_cart_checkout_rounded,
+              width: 0.2)
         ],
       ),
     );

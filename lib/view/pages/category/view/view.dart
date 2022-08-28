@@ -53,9 +53,9 @@ class CategoryView extends AppColors {
                       SizedBox(height: 30.h),
                       HoriList(categoryModel: category[0]),
                       SizedBox(height: 12.h),
-                      HoriList(categoryModel: category[1]),
+                      HoriList(categoryModel: category[4]),
                       SizedBox(height: 12.h),
-                      HoriList(categoryModel: category[2]),
+                      HoriList(categoryModel: category[3]),
                       SizedBox(height: size.height * 0.12)
                     ],
                   ),

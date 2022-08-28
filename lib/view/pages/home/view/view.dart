@@ -1,5 +1,4 @@
 import 'package:crocs/utils/themes/app_colors.dart';
-import 'package:crocs/utils/widgets/common/custom_grid_view.dart';
 import 'package:crocs/utils/widgets/widgets.dart';
 import 'package:crocs/view/pages/home/cubit/event/event.dart';
 import 'package:crocs/view/pages/home/cubit/state/state.dart';
@@ -36,8 +35,8 @@ class HomeView extends AppColors {
                   color: Colors.black, strokeWidth: 10),
             );
           } else if (state is ErrorState) {
-            return const Center(
-              child: Icon(Icons.error),
+            return Center(
+              child: Icon(Icons.error, size: 40.sp),
             );
           } else if (state is LoadedState) {
             final category = state.category;
@@ -45,33 +44,35 @@ class HomeView extends AppColors {
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Stack(
                   children: [
-                    SizedBox(height: 10.h),
-                    const SearchField(),
-                    SizedBox(height: 30.h),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15.r),
-                      child: ColoredBox(
-                        color: Colors.grey.shade300,
-                        child: const SizedBox(
-                            height: 130, width: double.maxFinite),
-                      ),
+                    Padding(
+                        padding: EdgeInsets.only(top: 10.h),
+                        child: const SearchField()),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10.h),
+                        const SearchField(),
+                        SizedBox(height: 30.h),
+                        const Coupons(),
+                        SizedBox(height: 30.h),
+                        HoriList(
+                          categoryModel: category[1],
+                        ),
+                        SizedBox(height: 30.h),
+                        Text(
+                          category[2].categaryName.toString(),
+                          style: TextStyle(
+                              color: primary,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(height: 12.h),
+                        CustomGridView(categoryModel: category[2]),
+                        SizedBox(height: size.height * 0.11)
+                      ],
                     ),
-                    SizedBox(height: 30.h),
-                    HoriList(categoryModel: category[4], ),
-                    SizedBox(height: 30.h),
-                    Text(
-                      category[3].categaryName.toString(),
-                      style: TextStyle(
-                          color: primary,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(height: 12.h),
-                    CustomGridView(categoryModel: category[3]),
-                    SizedBox(height: size.height * 0.11)
                   ],
                 ),
               ),

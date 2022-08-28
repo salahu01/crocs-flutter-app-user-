@@ -26,6 +26,7 @@ class ControllerView extends AppColors {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           IndexedStack(
@@ -39,26 +40,27 @@ class ControllerView extends AppColors {
                   child: const Category(key: PageStorageKey('key2'))),
               PageStorage(
                   bucket: _bucket,
-                  child: const Account(key: PageStorageKey('key3'))),
+                  child: Account(key: const PageStorageKey('key3'))),
             ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(
-                left: size.width * 0.05,
-                right: size.width * 0.05,
-                bottom: size.height * 0.02,
-              ),
-              decoration: BoxDecoration(
-                  color: primary, borderRadius: BorderRadius.circular(20.sp)),
-              height: size.height * 0.08,
-              child: BottomNavigationBar(
+          Column(
+            children: [
+              SizedBox(height: size.height * 0.9),
+              Container(
+                margin: EdgeInsets.only(
+                  left: size.width * 0.05,
+                  right: size.width * 0.05,
+                  bottom: size.height * 0.02,
+                ),
+                decoration: BoxDecoration(
+                    color: primary, borderRadius: BorderRadius.circular(20.sp)),
+                height: size.height * 0.08,
+                child: BottomNavigationBar(
                   currentIndex:
                       context.select((ControllerCubit cubit) => cubit.state),
                   selectedItemColor: light,
-                  unselectedItemColor: lowLight,
-                  iconSize: 23.sp,
+                  unselectedItemColor: Colors.grey.shade500,
+                  iconSize: size.height / 30,
                   elevation: 0,
                   onTap: (index) {
                     context.read<ControllerCubit>().changePage(index);
@@ -72,8 +74,10 @@ class ControllerView extends AppColors {
                     BottomNavigationBarItem(
                         icon: Icon(Icons.category), label: ''),
                     BottomNavigationBarItem(icon: Icon(Icons.person), label: '')
-                  ]),
-            ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

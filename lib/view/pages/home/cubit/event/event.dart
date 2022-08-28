@@ -14,7 +14,9 @@ class HomeCubit extends Cubit<HomeState> {
     final response = await DataServices().fetchingCategory();
     if (response.isEmpty) {
       log('Empty');
-    } else {
+    } else if(response == 'e'){
+      emit(ErrorState());
+    }else{
       emit(LoadedState(response));
     }
   }

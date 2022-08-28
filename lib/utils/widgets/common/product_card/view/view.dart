@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
+import '../../../widgets.dart';
+
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.id}) : super(key: key);
   final String id;
@@ -88,26 +90,12 @@ class ProductCardView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      product.actualPrice.toString(),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12.sp,
-                          decoration: TextDecoration.lineThrough,
-                          decorationThickness: 2),
-                    ),
-                    Text(
-                      ' To ${product.currentPrice.toString()}',
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12.sp,
-                          decorationThickness: 2),
-                    ),
-                  ],
+                Price(
+                  actualPrice: product.actualPrice ?? '',
+                  currentPrice: product.currentPrice ?? '',
+                  size: 11.sp,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.red,
                 ),
                 SizedBox(height: 3.h),
                 SizedBox(

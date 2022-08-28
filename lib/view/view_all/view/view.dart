@@ -1,5 +1,4 @@
 import 'package:crocs/utils/themes/app_colors.dart';
-import 'package:crocs/utils/widgets/common/custom_grid_view.dart';
 import 'package:crocs/utils/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +9,6 @@ import '../../../model/category_model.dart';
 class ViewAll extends AppColors {
   const ViewAll({Key? key, required this.categoryModel}) : super(key: key);
   final CategoryModel categoryModel;
-  
 
   @override
   Widget build(BuildContext context) {

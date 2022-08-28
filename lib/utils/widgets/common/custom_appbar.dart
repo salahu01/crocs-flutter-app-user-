@@ -20,29 +20,29 @@ class CustomAppBar extends AppColors implements PreferredSizeWidget {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: InkWell(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
-          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart())),
-          child: Icon(
-            Icons.shopping_bag,
-            color: primary,
-            size: 25.sp,
-          ),
-        ),
         actions: [
+          InkWell(
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const Cart())),
+            child: Icon(
+              Icons.shopping_bag,
+              color: primary,
+              size: 25.sp,
+            ),
+          ),
+          SizedBox(width: 10.w),
           Icon(
-            Icons.settings,
+            Icons.notifications,
             color: primary,
             size: 25.sp,
           ),
           SizedBox(width: 14.w)
         ],
-        title: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-                fontWeight: FontWeight.w700, color: primary, fontSize: 20.sp),
-          ),
+        title: Text(
+          title,
+          style: TextStyle(
+              fontWeight: FontWeight.w800, color: primary, fontSize: 20.sp),
         ),
       );
 }

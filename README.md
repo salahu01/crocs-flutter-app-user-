@@ -1,16 +1,62 @@
-# crocs
+# Crocs Frontent
 
-A new Flutter project.
+## Download Apks
 
-## Getting Started
+apks for diffrent platforms
 
-This project is a starting point for a Flutter application.
+* [arm64-v8a]()
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* [armeabi-v7a]()
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+* [app-x86_64]()
+
+
+## How to Use 
+
+*Step 1:*
+
+Download or clone this repo by using the link below:
+
+```
+https://github.com/salahu01/crocs-flutter-app-user-.git
+
+```
+
+
+*Step 2:*
+
+
+Go to project root and execute the following command in console to get the required dependencies: 
+
+```
+flutter pub get 
+```
+
+
+ *Step 3:*
+
+For run the project :  
+```
+flutter run 
+```
+
+## Followed Architecture
+
+MVC
+
+## Followed StateManagement
+
+Bloc with Cubit
+
+## Libraries & Tools Used 
+
+* [bloc](https://pub.dev/packages/bloc)
+* [equatable](https://pub.dev/packages/equatable)
+* [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+* [flutter_screenutil](https://pub.dev/packages/flutter_screenutil)
+* [dio](https://pub.dev/packages/dio)
+* [marquee](https://pub.dev/packages/marquee)
+* [shimmer_animation](https://pub.dev/packages/shimmer_animation)
+* [shared_preferences](https://pub.dev/packages/shared_preferences)

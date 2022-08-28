@@ -48,30 +48,10 @@ class ProductView extends AppColors {
                               ),
                             ),
                             SizedBox(height: 20.h),
-                            Row(
-                              children: [
-                                Text(
-                                  '\$ ${product.actualPrice}',
-                                  style: TextStyle(
-                                    decoration: TextDecoration.lineThrough,
-                                    decorationThickness: 2.r,
-                                    color: primary,
-                                    fontSize: 26.sp,
-                                    height: 1.15.r,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                Text(
-                                  ' to \$ ${product.currentPrice}',
-                                  style: TextStyle(
-                                    color: primary,
-                                    fontSize: 26.sp,
-                                    height: 1.15.r,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            Price(
+                                size: 26.sp,
+                                actualPrice: product.actualPrice ?? '',
+                                currentPrice: product.currentPrice ?? ''),
                             SizedBox(height: 20.h),
                             Row(
                               children: [
@@ -80,52 +60,15 @@ class ProductView extends AppColors {
                                   style: TextStyle(
                                     color: primary,
                                     fontSize: 18.sp,
-                                    height: 1.15.r,
                                     fontWeight: FontWeight.w800,
                                   ),
                                 ),
                                 const Spacer(),
-                                InkWell(
-                                    onTap: () {
-                                      context
-                                          .read<ProductCubit>()
-                                          .changeSize('S');
-                                    },
-                                    overlayColor: MaterialStateProperty.all(
-                                        Colors.transparent),
-                                    child: context.select(
-                                      (ProductCubit state) => state.state == 'S'
-                                          ? sizeButton('S', primary, light)
-                                          : sizeButton('S', light, primary),
-                                    )),
+                                sizeButton(context, 'S'),
                                 const Spacer(),
-                                InkWell(
-                                    onTap: () {
-                                      context
-                                          .read<ProductCubit>()
-                                          .changeSize('M');
-                                    },
-                                    overlayColor: MaterialStateProperty.all(
-                                        Colors.transparent),
-                                    child: context.select(
-                                      (ProductCubit state) => state.state == 'M'
-                                          ? sizeButton('M', primary, light)
-                                          : sizeButton('M', light, primary),
-                                    )),
+                                sizeButton(context, 'M'),
                                 const Spacer(),
-                                InkWell(
-                                    onTap: () {
-                                      context
-                                          .read<ProductCubit>()
-                                          .changeSize('L');
-                                    },
-                                    overlayColor: MaterialStateProperty.all(
-                                        Colors.transparent),
-                                    child: context.select(
-                                      (ProductCubit state) => state.state == 'L'
-                                          ? sizeButton('L', primary, light)
-                                          : sizeButton('L', light, primary),
-                                    )),
+                                sizeButton(context, 'L'),
                                 const Spacer(),
                               ],
                             ),
@@ -147,72 +90,16 @@ class ProductView extends AppColors {
                       ),
                     ),
                     SizedBox(height: 17.h),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.cleaning_services_rounded,
-                          color: Colors.green[800],
-                          size: 35.sp,
-                        ),
-                        SizedBox(width: 20.w),
-                        Text(
-                          'Easy to Clean',
-                          style: TextStyle(
-                            color: primary,
-                            fontSize: 18.sp,
-                            height: 1.15.r,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ],
+                    detail(
+                      Icons.cleaning_services_outlined,
+                      'Easy to Clean',
+                      'Washes off with soap and water, perfect for kids and active families.',
                     ),
-                    SizedBox(height: 15.h),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Washes off with soap and water, perfect for kids and active families.',
-                        style: TextStyle(
-                          color: primary,
-                          fontSize: 15.sp,
-                          height: 1.2.r,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                    detail(
+                      Icons.fingerprint,
+                      'Low Carbon Footprint',
+                      '*This metric was calculated using the Higg Product Module 1.0 at Higg.org. This calculation was conducted internally, was 3rd party verified, and represents a cradle-to-grave impact.',
                     ),
-                    SizedBox(height: 17.h),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.fingerprint,
-                          color: Colors.green[800],
-                          size: 35.sp,
-                        ),
-                        SizedBox(width: 20.w),
-                        Text(
-                          'Low Carbon Footprint',
-                          style: TextStyle(
-                            color: primary,
-                            fontSize: 18.sp,
-                            height: 1.15.r,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 15.h),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        '*This metric was calculated using the Higg Product Module 1.0 at Higg.org. This calculation was conducted internally, was 3rd party verified, and represents a cradle-to-grave impact.',
-                        style: TextStyle(
-                          color: primary,
-                          fontSize: 15.sp,
-                          height: 1.2.r,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20.h),
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
@@ -300,33 +187,65 @@ class ProductView extends AppColors {
                 backgroundColor: Colors.transparent,
               ),
             ),
-            const CustomButton(),
+            CustomButton(
+              width: 0.17,
+              icon: Icons.shopping_bag,
+              dialog: 'Add To Cart',
+              onTap: () {},
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget sizeButton(String text, Color textColor, Color backgroundColor) =>
-      DecoratedBox(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: primary, width: 2.r),
-            color: backgroundColor),
-        child: SizedBox(
-          height: 40.sp,
-          width: 40.sp,
-          child: Center(
+  Widget sizeButton(BuildContext context, String text) => SizeButton(
+        onTap: () => context.read<ProductCubit>().changeSize(text),
+        backgroundColor:
+            context.select((ProductCubit state) => state.state) == text
+                ? light
+                : primary,
+        text: text,
+        textColor: context.select((ProductCubit state) => state.state) == text
+            ? primary
+            : light,
+      );
+  Widget detail(IconData icon, String textHead, String textSub) => Column(
+        children: [
+          Row(
+            children: [
+              Icon(
+                icon,
+                color: Colors.green[800],
+                size: 35.sp,
+              ),
+              SizedBox(width: 20.w),
+              Text(
+                textHead,
+                style: TextStyle(
+                  color: primary,
+                  fontSize: 18.sp,
+                  height: 1.15.r,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 15.h),
+          Align(
+            alignment: Alignment.topLeft,
             child: Text(
-              text,
+              textSub,
               style: TextStyle(
-                color: textColor,
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w700,
+                color: primary,
+                fontSize: 15.sp,
+                height: 1.2.r,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
-        ),
+          SizedBox(height: 20.h),
+        ],
       );
 
   Widget commentBox(String text) => ClipRRect(
