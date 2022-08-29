@@ -47,7 +47,7 @@ class ViewAll extends AppColors {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 13.w),
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(

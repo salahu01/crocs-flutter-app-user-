@@ -92,7 +92,7 @@ class Account extends AppColors {
               ),
               SizedBox(height: 30.h),
               Visibility(
-                visible: false,
+                visible: true,
                 child: listViewBuilder(
                   contents: detailsWithAuth,
                   reations: detailsWithAuthReation,
