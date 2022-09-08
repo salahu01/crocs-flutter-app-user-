@@ -1,3 +1,3 @@
 abstract class Api {
-  String uri = 'https://crocs-online.herokuapp.com/' ;
+  String uri = 'https://crocs-online.herokuapp.com' ;
 }
