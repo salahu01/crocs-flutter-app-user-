@@ -10,7 +10,7 @@ import '../api_credentials/api.dart';
 class DataServices extends Api {
   fetchingCategory() async {
     try {
-      final response = await Dio().get('$uriLinux/category');
+      final response = await Dio().get('$uri/category');
       if (response.statusCode == 200) {
         final List<CategoryModel> res = categoryListFromJson(response.data);
         return res;
@@ -28,7 +28,7 @@ class DataServices extends Api {
 
   fetchingProduct({required String id}) async {
     try {
-      final response = await Dio().get('$uriLinux/products/$id');
+      final response = await Dio().get('$uri/products/$id');
       if (response.statusCode == 200) {
         final ProductModel res = ProductModel.fromJson(response.data);
         return res;

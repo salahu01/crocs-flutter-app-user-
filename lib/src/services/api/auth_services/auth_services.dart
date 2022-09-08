@@ -11,7 +11,7 @@ class AuthServices with Api {
         "email": "salahu@gmail.com",
         "password": "12345678",
       });
-      final response = await Dio().post('$uriLinux/auth/login', data: data);
+      final response = await Dio().post('$uri/auth/login', data: data);
       if (response.statusCode == 201) {
         return UserModel.fromJson(response.data);
       } else if (response.statusCode == 200) {
@@ -33,7 +33,7 @@ class AuthServices with Api {
         "password": "123345678",
         "name": "salahu"
       });
-      final response = await Dio().post('$uriLinux/auth/signUp', data: data);
+      final response = await Dio().post('$uri/auth/signUp', data: data);
       if (response.statusCode == 201) {
         UserModel.fromJson(response.data);
       } else if (response.statusCode == 200) {
