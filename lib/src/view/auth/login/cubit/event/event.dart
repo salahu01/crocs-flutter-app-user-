@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:crocs/src/model/user_model.dart';
 import 'package:crocs/src/services/api/auth_services/auth_services.dart';
@@ -25,6 +27,7 @@ class LogInCubit extends Cubit<LogInState> {
     emit(LoadingState());
     final response =
         await AuthServices().logIn(email: email, password: password);
+        log(response.toString());
     if (response is UserModel) {
       Navigator.pop(context);
     } else {
@@ -34,10 +37,10 @@ class LogInCubit extends Cubit<LogInState> {
   }
 
   showMessage(context, String data) =>
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: const Duration(milliseconds: 200), content: Text(data)));
-
-  bool storeData() {
-    return true;
-  }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: const Duration(milliseconds: 200),
+          content: Text(data),
+        ),
+      );
 }

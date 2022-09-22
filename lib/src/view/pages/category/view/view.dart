@@ -7,20 +7,8 @@ import '../../../../utils/widgets/widgets.dart';
 import '../../home/cubit/event/event.dart';
 import '../../home/cubit/state/state.dart';
 
-class Category extends StatelessWidget {
+class Category extends AppColors {
   const Category({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: const CategoryView(),
-    );
-  }
-}
-
-class CategoryView extends AppColors {
-  const CategoryView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

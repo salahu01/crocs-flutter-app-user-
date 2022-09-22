@@ -1,6 +1,6 @@
 import 'package:crocs/src/utils/themes/app_colors.dart';
-import 'package:crocs/src/view/cart/payment/payment.dart';
-import 'package:crocs/src/view/cart/shop/shop.dart';
+import 'package:crocs/src/view/payment/payment.dart';
+import 'package:crocs/src/view/shop/shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

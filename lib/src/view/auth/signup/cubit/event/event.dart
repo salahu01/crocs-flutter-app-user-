@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:crocs/src/model/user_model.dart';
 import 'package:crocs/src/services/api/auth_services/auth_services.dart';
 import 'package:flutter/material.dart';
 import '../state/state.dart';
@@ -33,7 +32,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(LoadingState());
     final response = await AuthServices()
         .signUp(userName: userName, email: email, password: password);
-    if (response is UserModel) {
+    if (response == true) {
       Navigator.pop(context);
     } else {
       emit(ErrorState());

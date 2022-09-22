@@ -58,61 +58,58 @@ class ProductView extends AppColors {
                           statusBarColor: light),
                       backgroundColor: Colors.transparent,
                     ),
-                    BlocProvider(
-                      create: (context) => ProductCubit(),
-                      child: Builder(builder: (context) {
-                        return Column(
-                          children: [
-                            SizedBox(
-                              height: 260.h,
-                              child: Center(
-                                child: Hero(
-                                  tag: product.id.toString(),
-                                  child: Image.network(
-                                    product.image.toString(),
-                                    height: context.select(
-                                                (ProductCubit state) =>
-                                                    state.state) ==
-                                            'S'
-                                        ? 230.h
-                                        : context.select((ProductCubit state) =>
-                                                    state.state) ==
-                                                'M'
-                                            ? 240.h
-                                            : 250.h,
-                                  ),
+                    Builder(builder: (context) {
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: 260.h,
+                            child: Center(
+                              child: Hero(
+                                tag: product.id.toString(),
+                                child: Image.network(
+                                  product.image.toString(),
+                                  height: context.select(
+                                              (ProductCubit state) =>
+                                                  state.state) ==
+                                          'S'
+                                      ? 200.h
+                                      : context.select((ProductCubit state) =>
+                                                  state.state) ==
+                                              'M'
+                                          ? 220.h
+                                          : 240.h,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20.h),
-                            Price(
-                                size: 26.sp,
-                                actualPrice: product.actualPrice ?? '',
-                                currentPrice: product.currentPrice ?? ''),
-                            SizedBox(height: 20.h),
-                            Row(
-                              children: [
-                                Text(
-                                  'Size : ',
-                                  style: TextStyle(
-                                    color: primary,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w800,
-                                  ),
+                          ),
+                          SizedBox(height: 20.h),
+                          Price(
+                              size: 26.sp,
+                              actualPrice: product.actualPrice ?? '',
+                              currentPrice: product.currentPrice ?? ''),
+                          SizedBox(height: 20.h),
+                          Row(
+                            children: [
+                              Text(
+                                'Size : ',
+                                style: TextStyle(
+                                  color: primary,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w800,
                                 ),
-                                const Spacer(),
-                                sizeButton(context, 'S'),
-                                const Spacer(),
-                                sizeButton(context, 'M'),
-                                const Spacer(),
-                                sizeButton(context, 'L'),
-                                const Spacer(),
-                              ],
-                            ),
-                          ],
-                        );
-                      }),
-                    ),
+                              ),
+                              const Spacer(),
+                              sizeButton(context, 'S'),
+                              const Spacer(),
+                              sizeButton(context, 'M'),
+                              const Spacer(),
+                              sizeButton(context, 'L'),
+                              const Spacer(),
+                            ],
+                          ),
+                        ],
+                      );
+                    }),
                     SizedBox(height: 17.h),
                     Align(
                       alignment: Alignment.topLeft,
@@ -137,6 +134,17 @@ class ProductView extends AppColors {
                       'Low Carbon Footprint',
                       '*This metric was calculated using the Higg Product Module 1.0 at Higg.org. This calculation was conducted internally, was 3rd party verified, and represents a cradle-to-grave impact.',
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        button(50.h, size.width * 0.42, 'Buy Now'),
+                        AddToCart(
+                          product: product,
+                          widget: button(50.h, size.width * 0.42,'Add To Cart'),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
@@ -193,35 +201,21 @@ class ProductView extends AppColors {
           ],
         ),
       ),
-      bottomNavigationBar: Row(
-        children: [
-          button(size, 'Buy Now'),
-          AddToCart(
-            product: product,
-            widget: button(size, 'Add To Cart'),
-          ),
-        ],
-      ),
     );
   }
 
-  Widget button(Size size, String text) => DecoratedBox(
+  Widget button(double height, double width, String text) => DecoratedBox(
         decoration: BoxDecoration(
-          color: primary,
-          border: Border.all(
-            color: light,
-            width: 2.sp,
-          ),
-        ),
+            color: primary, borderRadius: BorderRadius.circular(20.r)),
         child: SizedBox(
-          height: size.height * 0.1,
-          width: size.width * 0.5,
+          height: height,
+          width: width,
           child: Center(
             child: Text(
               text,
               style: TextStyle(
                 color: light,
-                fontSize: 23.sp,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -233,12 +227,12 @@ class ProductView extends AppColors {
         onTap: () => context.read<ProductCubit>().changeSize(text),
         backgroundColor:
             context.select((ProductCubit state) => state.state) == text
-                ? light
-                : primary,
+                ? primary
+                : light,
         text: text,
         textColor: context.select((ProductCubit state) => state.state) == text
-            ? primary
-            : light,
+            ? light
+            : primary,
       );
   Widget detail(IconData icon, String textHead, String textSub) => Column(
         children: [

@@ -1,3 +1,3 @@
 export './account/account.dart';
-export './category/category.dart';
+export './category/view/view.dart';
 export './home/home.dart';

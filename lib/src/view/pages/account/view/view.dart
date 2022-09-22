@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:crocs/src/utils/themes/app_colors.dart';
 import 'package:crocs/src/utils/widgets/widgets.dart';
+import 'package:crocs/src/view/pages/account/cubit/event/event.dart';
+import 'package:crocs/src/view/pages/account/cubit/state/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../utils/widgets/widgets.dart';
+import '../../../auth/login/view/view.dart';
 
 class Account extends AppColors {
   Account({Key? key}) : super(key: key);
@@ -43,71 +47,90 @@ class Account extends AppColors {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    log('message');
     return Scaffold(
       backgroundColor: light,
       appBar: CustomAppBar(title: 'My Account'),
-      body: SingleChildScrollView(
-        primary: true,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 13.w),
-          child: Column(
-            children: [
-              SizedBox(height: 10.h),
-              ListTile(
-                dense: true,
-                contentPadding: const EdgeInsets.all(0),
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(1000.r),
-                  child: Image.asset(
-                    'assets/images/unknown.jpeg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                title: text(text: "Unknown", fontWeight: FontWeight.w700),
-                trailing: Visibility( 
-                  visible: true,
-                  child: InkWell(
-                    onTap: () {},
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.r),
-                      child: ColoredBox(
-                        color: primary,
-                        child: SizedBox(
-                          height: 40.h,
-                          width: 70.w,
-                          child: Center(
-                            child: text(
-                              text: 'LogIn',
-                              color: light,
-                              size: 15.sp,
-                              fontWeight: FontWeight.w700,
+      body: BlocBuilder<AccountCubit, AccountState>(
+        builder: (context, state) {
+          context.read<AccountCubit>().fetchData();
+          if (state is LoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(
+                  color: Colors.black, strokeWidth: 10),
+            );
+          }
+          return SingleChildScrollView(
+            primary: true,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10.h),
+                  ListTile(
+                    dense: true,
+                    contentPadding: const EdgeInsets.all(0),
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(1000.r),
+                      child: Image.asset(
+                        'assets/images/unknown.jpeg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    title: text(text: "Unknown", fontWeight: FontWeight.w700),
+                    trailing: Visibility(
+                      visible: state is NotLoggedState,
+                      child: InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LogInView(),
+                          ),
+                        ).whenComplete(
+                            () => context.read<AccountCubit>().fetchData()),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12.r),
+                          child: ColoredBox(
+                            color: primary,
+                            child: SizedBox(
+                              height: 40.h,
+                              width: 70.w,
+                              child: Center(
+                                child: text(
+                                  text: 'LogIn',
+                                  color: light,
+                                  size: 15.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(height: 30.h),
+                  Visibility(
+                    visible: state is! NotLoggedState,
+                    child: listViewBuilder(
+                      contents: detailsWithAuth,
+                      reations: detailsWithAuthReation,
+                      icons: detailsWithAuthIcons,
+                    ),
+                  ),
+                  SizedBox(height: 10.r),
+                  listViewBuilder(
+                    contents: appDeatils,
+                    reations: appDeatilsReation,
+                    icons: appDeatilsIcons,
+                  ),
+                  SizedBox(height: size.height * 0.11),
+                ],
               ),
-              SizedBox(height: 30.h),
-              Visibility(
-                visible: true,
-                child: listViewBuilder(
-                  contents: detailsWithAuth,
-                  reations: detailsWithAuthReation,
-                  icons: detailsWithAuthIcons,
-                ),
-              ),
-              SizedBox(height: 13.h),
-              listViewBuilder(
-                contents: appDeatils,
-                reations: appDeatilsReation,
-                icons: appDeatilsIcons,
-              ),
-              SizedBox(height: size.height * 0.11),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -119,6 +142,7 @@ class Account extends AppColors {
       ListView.separated(
         itemCount: contents.length,
         shrinkWrap: true,
+        padding: const EdgeInsets.all(0),
         primary: false,
         separatorBuilder: (BuildContext context, int index) {
           return SizedBox(height: 13.h);
@@ -129,7 +153,7 @@ class Account extends AppColors {
             border: Border.all(color: primary, width: 1),
           ),
           child: SizedBox(
-            height: 50.h,
+            height: 50,
             child: ListTile(
               onTap: reations[index],
               dense: true,
